@@ -10,7 +10,8 @@ function App() {
       {name: "Max", age : 28},
       {name: "Manu", age : 26},
       {name: "Deep", age : 22}
-    ]
+    ],
+    showPersons: false
   })
 
   const switchHandler = (arg) => {
@@ -20,7 +21,8 @@ function App() {
         {name: arg, age : 28},
         {name: "Manu_update", age : 26},
         {name: "Deep_update",age : 22}
-      ]
+      ],
+
     })
   }
 
@@ -35,21 +37,29 @@ function App() {
     })
   }
 
+  const togglePersonHandler = () => {
+    const currentValue = personData.showPersons;
+    setPersonData({...personData, showPersons: !currentValue})
+  }
   return (
     <div className="App">
       <h1>react app</h1>
-      <button onClick={() => switchHandler("Max_Using_callback")}>switch Name</button>
+      <button onClick={togglePersonHandler}>switch Name</button>
+      {personData.showPersons ?
+      <div>
       <Person  
-        name= {personData.persons[0].name} 
-        age={personData.persons[0].age}
-        click = {switchHandler.bind(this, "Max_Using_bind")}/>
-      <Person 
-        name={personData.persons[1].name} 
-        age={personData.persons[1].age}
-        changed = {nameChangeHandler}>This is child</Person>
-      <Person 
-        name={personData.persons[2].name} 
-        age={personData.persons[2].age}/>
+          name= {personData.persons[0].name} 
+          age={personData.persons[0].age}
+          click = {switchHandler.bind(this, "Max_Using_bind")}/>
+        <Person 
+          name={personData.persons[1].name} 
+          age={personData.persons[1].age}
+          changed = {nameChangeHandler}>This is child</Person>
+        <Person 
+          name={personData.persons[2].name} 
+          age={personData.persons[2].age}/>
+      </div>
+      : null }
     </div>
   );
 }
